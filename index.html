@@ -145,6 +145,7 @@
   <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
+    window.addEventListener("DOMContentLoaded", () => {
     particlesJS("particles-js", {
       particles: {
         number: { value: 60 },
@@ -158,6 +159,7 @@
         modes: { repulse: { distance: 100 } }
       }
     });
+  });
 
     function copyDiscord() {
       navigator.clipboard.writeText("@yew2362");
