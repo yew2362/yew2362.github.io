@@ -4,22 +4,103 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yew2362</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/yew2362/yew2362.github.io/refs/heads/main/159490183.png" />
   <style>
-    * {
-      box-sizing: border-box;
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0e0e0e;
+      color: white;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #000000, #1f1f1f);
-      color: white;
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 520px;
+      margin: auto;
+      margin-top: 10vh;
+      background: rgba(30, 30, 30, 0.9);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 40px #000;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #444;
+      object-fit: cover;
+      box-shadow: 0 0 10px #00000088;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .button-row {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (min-width: 600px) {
+      .button-row {
+        flex-direction: row;
+      }
+    }
+
+    .button {
+      flex: 1;
+      padding: 0.9rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      background: transparent;
+      text-decoration: none;
+      border: 2px solid;
+      transition: all 0.3s ease;
+      display: flex;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      animation: fadeIn 1s ease-in-out;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .spotify { border-color: #1DB954; color: #1DB954; }
+    .spotify:hover { background: #1DB954; color: white; }
+
+    .youtube { border-color: #FF0000; color: #FF0000; }
+    .youtube:hover { background: #FF0000; color: white; }
+
+    .discord { border-color: #5865F2; color: #5865F2; }
+    .discord:hover { background: #5865F2; color: white; }
+
+    .copy-msg {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #888;
+      transition: opacity 0.3s;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease;
     }
 
     @keyframes fadeIn {
@@ -27,132 +108,66 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    .container {
-      background-color: #2a2a2a;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-      animation: popIn 0.8s ease;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.95); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    h1 {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-      animation: fadeUp 0.8s ease-in-out;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid #444;
-      object-fit: cover;
-      box-shadow: 0 0 12px #00000080;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      padding: 1rem;
-      margin: 1rem 0;
-      border: none;
-      border-radius: 1rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeUp 0.5s ease forwards;
-    }
-
-    .button:nth-child(1) { animation-delay: 0.2s; }
-    .button:nth-child(2) { animation-delay: 0.4s; }
-    .button:nth-child(3) { animation-delay: 0.6s; }
-
-    .spotify { background: #1DB954; }
-    .spotify:hover { background: #1aa34a; }
-
-    .youtube { background: #FF0000; }
-    .youtube:hover { background: #cc0000; }
-
-    .discord { background: #5865F2; }
-    .discord:hover { background: #4752c4; }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .modal-content {
-      background: #1e1e1e;
-      padding: 2rem;
-      border-radius: 1rem;
-      text-align: center;
-      width: 80%;
-      max-width: 300px;
-      box-shadow: 0 0 20px #00000090;
-    }
-
-    .close-btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #5865F2;
-      border: none;
-      border-radius: 0.5rem;
-      color: white;
-      cursor: pointer;
+    svg {
+      width: 20px;
+      height: 20px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <div id="particles-js"></div>
+
+  <div class="container fade-in">
     <img class="avatar" src="https://raw.githubusercontent.com/yew2362/yew2362.github.io/refs/heads/main/159490183.png" alt="Profile picture" />
     <h1>@yew2362</h1>
 
-    <a href="https://open.spotify.com/user/31lq34fpiqrs5sedpuswtpl2ncla?si=Ojz5dse_Qb6g7GZT9UbniA" target="_blank" class="button spotify">🎵 Spotify</a>
-    <a href="https://youtube.com/@yew2362" target="_blank" class="button youtube">📺 YouTube</a>
-    <button onclick="showDiscord()" class="button discord">💬 Discord</button>
-  </div>
+    <div class="button-row">
+      <a href="https://open.spotify.com/user/31lq34fpiqrs5sedpuswtpl2ncla?si=Ojz5dse_Qb6g7GZT9UbniA" target="_blank" class="button spotify">
+        <svg fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm114.9 365.3c-5.3 8.4-16.6 11-25 5.7-68.1-42.1-153.9-51.5-255.6-28.4-9.5 2.2-19-3.8-21.2-13.3-2.2-9.5 3.8-19 13.3-21.2 111.5-25.3 207.8-14.1 284.1 33.7 8.4 5.3 11 16.6 5.7 25.1zm35.6-68.5c-6.6 10.6-20.7 13.9-31.3 7.3-78-48.7-196.4-62.8-288.6-34.6-11.5 3.5-23.7-2.7-27.2-14.2-3.5-11.5 2.7-23.7 14.2-27.2 105.3-31.7 235.8-16.7 327.3 40.6 10.6 6.6 13.9 20.7 7.3 31.3zm2.7-75.2c-93.8-55.6-250.2-60.5-343.5-33.4-13 3.7-26.7-3.5-30.4-16.5-3.7-13 3.5-26.7 16.5-30.4 108.9-31.2 279.2-25.5 386.1 39.2 11.5 6.8 15.3 21.6 8.5 33.1-6.8 11.6-21.6 15.4-33.2 8.5z"/></svg>
+        Spotify
+      </a>
 
-  <div class="modal" id="discordModal">
-    <div class="modal-content">
-      <h2>My Discord</h2>
-      <p style="font-family: monospace; font-size: 1.2rem;">@yew2362</p>
-      <button class="close-btn" onclick="hideDiscord()">Close</button>
+      <a href="https://youtube.com/@yew2362" target="_blank" class="button youtube">
+        <svg fill="currentColor" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-24-25.1-42.8-49.1-49.1C456.5 64 288 64 288 64S119.5 64 75.4 75C51.4 81.3 32.6 100.1 26.3 124.1 16 168.2 16 256 16 256s0 87.8 10.3 131.9c6.3 24 25.1 42.8 49.1 49.1C119.5 448 288 448 288 448s168.5 0 212.6-11c24-6.3 42.8-25.1 49.1-49.1C560 343.8 560 256 560 256s0-87.8-10.3-131.9zM232 336V176l142 80-142 80z"/></svg>
+        YouTube
+      </a>
+
+      <button class="button discord" onclick="copyDiscord()">
+        <svg fill="currentColor" viewBox="0 0 640 512"><path d="M524.3 64C550.6 64 576 89.3 576 115.7V384c0 26.5-25.4 51.7-51.7 51.7H115.7C89.3 435.7 64 410.3 64 384V115.7C64 89.3 89.3 64 115.7 64H524.3zM320 176a48 48 0 1 0 0 96 48 48 0 1 0 0-96z"/></svg>
+        Discord
+      </button>
     </div>
+
+    <div class="copy-msg" id="copyMsg">Click to copy Discord username</div>
   </div>
 
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    function showDiscord() {
-      document.getElementById('discordModal').style.display = 'flex';
-    }
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        size: { value: 3 },
+        color: { value: "#ffffff" },
+        line_linked: { enable: true, opacity: 0.1 },
+        move: { speed: 0.6 },
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 100 } }
+      }
+    });
 
-    function hideDiscord() {
-      document.getElementById('discordModal').style.display = 'none';
+    function copyDiscord() {
+      navigator.clipboard.writeText("@yew2362");
+      const msg = document.getElementById('copyMsg');
+      msg.textContent = "Copied @yew2362!";
+      msg.style.color = "#5865F2";
+      setTimeout(() => {
+        msg.textContent = "Click to copy Discord username";
+        msg.style.color = "#888";
+      }, 2500);
     }
   </script>
 
